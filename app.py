@@ -1,24 +1,81 @@
-# from flask import Flask, render_template, request, send_file, redirect, url_for, flash
-# from flask import make_response, session, g, send_file
-# from flask_sqlalchemy import SQLAlchemy
-# from sqlalchemy import or_
+from flask import Flask, render_template, request, send_file, redirect, url_for, flash
+from flask import make_response, session, g, send_file
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import or_
 # from werkzeug.security import generate_password_hash, check_password_hash
 # import psycopg2
-# import os
+import os
 
 # from datetime import datetime, timedelta
 # import smtplib
 # import imghdr
 # from email.message import EmailMessage
 
-# app = Flask(__name__)
+app = Flask(__name__)
 
-# app.config['SECRET_KEY'] = os.urandom(24)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///NEWDATABASE.db'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-# app.config['USE_SESSION_FOR_NEXT'] = True
+app.config['SECRET_KEY'] = os.urandom(24)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/PatientCenteredDatabase'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///PatientCenteredDatabase.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['USE_SESSION_FOR_NEXT'] = True
 
-# db = SQLAlchemy(app)
+db = SQLAlchemy(app)
+
+
+class Roles(db.Model):
+
+    __tablename__ = "Roles"
+    r_id = db.Column(db.Integer, primary_key=True)
+    role_name = db.Column(db.String(20))
+    clearance_level = db.Column(db.Integer, nullable=True)
+    details = db.relationship('Users', backref='Roles')
+
+
+class Users(db.Model):
+    user_id = db.Column(db.Integer, primary_key=True)
+    user_name = db.Column(db.String(50), unique=True)
+    password = db.Column(db.String(50))
+
+    name = db.Column(db.String(50))
+    dob = db.Column(db.DateTime(50))
+    city = db.Column(db.String(50))
+    address = db.Column(db.String(500))
+    phone = db.Column(db.Integer)
+    email = db.Column(db.String(50))
+
+    r_id = db.Column(db.Integer, db.ForeignKey('Roles.r_id'))
+
+
+class PatientLab(db.Model):
+    report_id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(db.Integer())
+    lab_id = db.Column(db.Integer())
+
+    date_collected = db.Column(db.DateTime)
+    hemoglobin = db.Column(db.Float(), nullable=True)
+    platelets = db.Column(db.Float(), nullable=True)
+    rbc_count = db.Column(db.Float(), nullable=True)
+    pcv = db.Column(db.Float(), nullable=True)
+    mcv = db.Column(db.Float(), nullable=True)
+    mchc = db.Column(db.Float(), nullable=True)
+    mch = db.Column(db.Float(), nullable=True)
+
+
+class DoctorAppointment(db.Model):
+    app_id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(db.Integer)
+    doc_id = db.Column(db.Integer)
+
+    hospital = db.Column(db.String(500))
+    appointment_date = db.Column(db.DateTime)
+    symptoms = db.Column(db.String(500))
+    medicines = db.Column(db.String(500), nullable=True)
+    next_appointment_date = db.Column(db.DateTime, nullable=True)
+    recommended_lab_tests = db.Column(db.String(500), nullable=True)
+
+    allergy = db.Column(db.String(500), nullable=True)
+    surgery = db.Column(db.String(500), nullable=True)
+    surgery_date = db.Column(db.DateTime)
 
 
 # @app.route('/')
@@ -112,9 +169,12 @@
 #             return redirect("/signup")
 #     return render_template("login.html")
 
-
 # @app.route('/dropsession', methods=['POST', 'GET'])
 # def dropsession():
 #     session.pop('user', None)
 #     flash("Sucessfully Logged Out")
 #     return render_template('login.html')
+
+if __name__ == '__main__':
+    db.create_all()
+    app.run(debug=True)
