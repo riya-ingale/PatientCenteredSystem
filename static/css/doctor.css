@@ -1,0 +1,200 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #def2f1;
+}
+
+/*Header*/
+.navbar {
+  background-color: #3aafa9;
+}
+/*End Header Styling*/
+/* Card */
+#info {
+  border: 2px black;
+}
+/* End Card */
+
+/* Search Box */
+.search-box {
+  border: solid 5px black;
+  display: inline-block;
+  position: relative;
+  border-radius: 50px;
+}
+.search-box input[type="text"] {
+  font-family: Raleway, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  padding: 5px 40px 5px 10px;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 50px;
+  transition: width 800ms cubic-bezier(0.5, -0.5, 0.5, 0.5) 600ms;
+}
+.search-box input[type="text"]:focus {
+  outline: none;
+}
+.search-box input[type="text"]:focus,
+.search-box input[type="text"]:not(:placeholder-shown) {
+  width: 300px;
+  transition: width 800ms cubic-bezier(0.5, -0.5, 0.5, 1.5);
+}
+.search-box input[type="text"]:focus + span,
+.search-box input[type="text"]:not(:placeholder-shown) + span {
+  bottom: 13px;
+  right: 10px;
+  transition: bottom 300ms ease-out 800ms, right 300ms ease-out 800ms;
+}
+.search-box input[type="text"]:focus + span:after,
+.search-box input[type="text"]:not(:placeholder-shown) + span:after {
+  top: 0;
+  right: 10px;
+  opacity: 1;
+  transition: top 300ms ease-out 1100ms, right 300ms ease-out 1100ms,
+    opacity 300ms ease 1100ms;
+}
+.search-box span {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -13px;
+  right: -15px;
+  transition: bottom 300ms ease-out 300ms, right 300ms ease-out 300ms;
+}
+.search-box span:before,
+.search-box span:after {
+  content: "";
+  height: 25px;
+  border-left: solid 5px black;
+  position: absolute;
+  transform: rotate(-45deg);
+}
+.search-box span:after {
+  transform: rotate(45deg);
+  opacity: 0;
+  top: -20px;
+  right: -10px;
+  transition: top 300ms ease-out, right 300ms ease-out, opacity 300ms ease-out;
+}
+/* End Of Search Box */
+
+/*Footer*/
+.site-footer {
+  margin-top: 100px; /* Remove */
+  position: relative;
+  background-color: #3aafa9;
+  width: 100%;
+  bottom: 0;
+}
+
+.site-footer .container {
+  max-width: 85%;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  padding-top: 20px;
+}
+
+.site-footer .container h1 {
+  font-size: 40px;
+}
+
+.site-footer .container h2 {
+  font-size: 40px;
+  float: right;
+}
+
+.site-footer .grid-container a {
+  color: #f8e9a1;
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 16.25px;
+}
+
+.site-footer .grid-item {
+  padding: 10px;
+  color: #f8e9a1;
+}
+.grid-item a:hover {
+  color: #f76c6c !important;
+}
+
+.site-footer .grid-container .inner-grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  text-align: left;
+}
+
+.site-footer .container hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #f8e9a1;
+  margin: 1px;
+  padding: 0;
+}
+
+.site-footer .container p {
+  font-size: 14px;
+  text-align: right;
+  color: #f8e9a1;
+  font-weight: 500;
+}
+
+.site-footer .container .logo-img {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+}
+
+.site-footer .grid-container .grid-item .social-buttons {
+  padding-top: 20px;
+}
+
+.site-footer .grid-container .grid-item .social-buttons a {
+  display: inline-flex;
+  text-decoration: none;
+  font-size: 30px;
+  width: 60px;
+  height: 60px;
+  color: #1a1f24;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 0 8px;
+}
+
+.site-footer .grid-container .grid-item .social-buttons a i {
+  transition: 0.3s ease-in;
+}
+
+.site-footer .grid-container .grid-item .social-buttons a:hover i {
+  background: linear-gradient(45deg, #f8e9a1, #a2845c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(1.5);
+}
+
+.circle-icon {
+  background: #f8e9a1;
+  padding: 12px;
+  border-radius: 50%;
+}
+
+/*End Footer*/
+
+/*Responiveness*/
+/*// Small devices (landscape phones, 576px and up)*/
+@media (max-width: 576px) {
+  .search-box {
+    border: none;
+  }
+}
+/*End Responsive*/
