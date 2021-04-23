@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>Stay Connected 24/7</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename ='css/home.css') }}">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> 
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
+	<link rel="icon" type="image/icon" href="static\css\stethoscope-icon-2316460_640.png"> 
+</head>
+<body style="background-color: #3AAFA9 !important">
+    <nav class="navbar navbar-expand-md sticky-top" id="navigation"> 
+		<a class="navbar-brand" style="color:white ;"><img src="static\img\stethoscope-icon-2316460_640.png" width=40px height="40px"><b style="color: #24305E;">    Connect</b></a> 
+		<br> 
+		<button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target"> <span class="navbar-toggler-icon">   
+			<i class="fa fa-bars" style="color:white; font-size:28px;"></i>
+		</span></button> 
+		<div class="collapse navbar-collapse" id="collapse_target"> 
+		 <ul class="navbar-nav ml-auto" style="text-align: center;"> 
+		  <li class="nav-item"> <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a> </li> 
+		  <li class="nav-item"> <a class="nav-link" href="{{ url_for('.index', _anchor='features') }}"><i class="fa fa-info-circle" aria-hidden="true"></i>Features</a> </li> 
+		  <li class="nav-item"> <a class="nav-link" href="/login"><i class="fa fa-sign-in"></i> Login</a> </li> 
+		  <li class="nav-item"> <a class="nav-link" href="/signup"><i class="fa fa-user-plus"></i> Register</a> </li> 
+		 </ul> 
+		</div> 
+	   </nav>
+<!-- <img src="static\images\Messages-amico.png" id="bg" alt="">#14ffec -->
+<section class="hero-area">
+    <div class="container-fluid" style="margin: 0%;">
+        <div class="row">
+            <div class="col-sm-8" id="bg">
+                {% include 'animate.html' %}
+			</div>
+			<div class="col-sm-8" id="bgb">
+				{% include 'animate 2.html' %}
+			</div>
+			<div class="col-sm-4 text-center" id="hometxt">
+				
+                <h1 style="text-align: center;color:white">
+                    <b>Connect 24/7</b>
+                </h1>
+                <br>
+                <h3 style="text-align: center;color:white">Track Your Health at<br>
+                    <b>Anytime, Any Moment</b>
+                </h3>
+                
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+<hr style="width:50%; margin-left:25% !important; margin-right:25% !important;border-top: 1px solid #17252A !important;" />
+<div class="cards-msg" id="features" style="margin-bottom: 10%;">
+<div class="msg text-center">
+	<h2>Project Features</h2>
+</div>
+<div class="card-deck col-sm-12 ">
+	<div class="card" id="cd1">
+	  <img src="static\img\growth-3078543_640.png" style="height:50%" class="card-img-top" alt="...">
+	  <div class="card-body">
+		<h5 class="card-title">Track your Health</h5>
+		<p class="card-text">Tracking Patient's health is the major issue nowadays.This app will provide the patient's medical history in form of interactive graph</p>
+	  </div>
+	  <div class="card-footer" >
+		<small class="text-muted">New Feature</small>
+	  </div>
+	</div>
+	<div class="card" id="cd2">
+	  <img src="static\img\ambulance-1874764_640.jpg" class="card-img-top" alt="...">
+	  <div class="card-body">
+		<h5 class="card-title">Tracking patient history during emergency.</h5>
+		<p class="card-text">Using <b>Connect</b> helps Doctors to get patient's medication and allergies history.</p>
+	  </div>
+	  <div class="card-footer">
+		<small class="text-muted">New Feature</small>
+	  </div>
+	</div>
+	<div class="card" id="cd3">
+	  <img src="static\img\business-card-586269_640.jpg" class="card-img-top" alt="...">
+	  <div class="card-body">
+		<h5 class="card-title">Using Card to track Patient's data</h5>
+		<p class="card-text">Medical Card may be useful to searcha Patient's Data.</p>
+	  </div>
+	  <div class="card-footer">
+		<small class="text-muted">Coming Soon</small>
+	  </div>
+	</div>
+  </div>
+  </div>
+</body>
+</html>

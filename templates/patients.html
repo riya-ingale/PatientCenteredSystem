@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Patient's History</title>
+    {{ js_resources|indent(4)|safe }} 
+    {{ css_resources|indent(4)|safe }} 
+    {{plot_script|indent(4)|safe }}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/styles.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+  </head>
+  <body style="background-color: #3AAFA9">
+    <div class="navbar navbar-fixed-top container-fluid" id="navbar">
+      <div class="navbar-header">
+       <button type="button" class="navbar-toggle navbar-default" data-toggle="collapse" data-target="#myNavbar">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>                        
+       </button>
+       <a class="navbar-brand"><img src="..\static\img\stethoscope-icon-2316460_640.png" width=30px height="30px"></a>
+     </div>
+     <div class="collapse navbar-right navbar-collapse" id="myNavbar">
+       <ul class="nav navbar-nav">
+         <li>Home</li>
+         <li>About</li>
+         <li>Contact</li>
+         <li>New appointment</li>
+         <li>Signout</li>
+       </ul>
+     </div>
+   </div>
+   
+
+    <div class="centered" style="display: block; margin: 75px auto; text-align: center; width: 800px">
+      {{ plot_div|indent(4)|safe }}
+    </div>
+    <div class="row d-flex justify-content-center" style="margin: 100px;">
+      <div class="col-12 d-flex justify-content-center">
+        <div class="table-responsive">
+        <table class="table table-fixed">
+          <tr>
+            <th>Only one column</th>
+          </tr>
+          <tr>
+            <td>first row</td>
+            
+          </tr>
+          <tr>
+            <td>second row</td>        
+          </tr>
+          <tr>
+            <td>third row</td>  
+          </tr>
+        </table>
+      </div>
+      </div>
+      <div class="col-12">
+        <div class="table-responsive">
+        <table class="table table-fixed">
+          <tr>
+            <th>First column</th>
+            <th>second column</th> 
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>6</td>
+          </tr>
+        </table>
+      </div>
+      </div>
+      <div class="col-12">
+        <div class="table-responsive">
+        <table class="table table-fixed">
+          <tr>
+            <th>First column</th>
+            <th>second column</th> 
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>6</td>
+          </tr>
+        </table>
+      </div>
+      </div>
+    </div>
+    <footer class="site-footer">
+      <div class = "container">
+  
+        <div class="grid-container">
+          <div class="grid-item">
+            
+            <img src = "..\static\img\stethoscope-icon-2316460_640.png" class = "logo-img" width="80px" height="80px">
+  
+          </div>
+  
+          <div class="grid-item inner-grid-container">
+            
+            <div class="grid-item"><a href="">About Us</a></div> 
+            <div class="grid-item"><a href="">Privacy Policy</a></div>  
+            <div class="grid-item"><a href="">Contact us</a></div>    
+  
+  
+          </div>
+  
+          <div class="grid-item">
+            <div class = "social-buttons">
+              <a href= ""><i class="fab fa-instagram circle-icon"></i></a>
+              <a href= ""><i class="fab fa-facebook circle-icon"></i></a>
+              <a href= ""><i class="fab fa-linkedin-in circle-icon"></i></a>
+              <a href= ""><i class="fab fa-twitter circle-icon"></i></a>
+            </div>
+          </div>   
+        </div>
+        <br>
+        <hr>
+
+  
+      </div>
+    </footer>
+  </body>
+</html>

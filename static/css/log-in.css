@@ -1,0 +1,233 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #3AAFA9;
+}
+
+.card {
+    margin-bottom: 20px;
+    border: none;
+}
+
+.box {
+    width: 500px;
+    padding: 40px;
+    position: absolute;
+    left: -100px;
+    background: #17252A;
+    text-align: center;
+    /*transition: 0.25s;*/s
+}
+
+.box input {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 10px 10px;
+    width: 250px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s
+}
+
+.box h1 {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500
+}
+
+.box input:focus {
+    width: 300px;
+    border-color: #2ecc71
+}
+
+.box input[type="submit"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer
+}
+
+.box input[type="submit"]:hover {
+    background: #2ecc71
+}
+
+/*Header*/
+.navbar {
+  background-color: #2B7A78 ;
+}
+/*End Header Styling*/
+/*Footer*/
+.site-footer {
+    margin-top: 100px; /* Remove */
+    position: relative;
+    background-color:#2B7A78 ;
+    width: 100%;  
+    bottom: 0; 
+  }
+  
+  .site-footer .container {
+    max-width: 85%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    padding-top: 20px;
+  }
+  
+  .site-footer .container h1 {
+    font-size: 40px;
+  }
+  
+  .site-footer .container h2 {
+    font-size: 40px;
+    float: right;
+  }
+  
+  .site-footer .grid-container a {
+    color: #F8E9A1;
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 16.25px;
+  }
+  
+  .site-footer .grid-item {
+    padding: 10px;
+    color: #F8E9A1;
+  }
+  .grid-item a:hover {
+    color: #F76C6C !important;
+  }
+  
+  .site-footer .grid-container .inner-grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    text-align: left;
+  }
+  
+  .site-footer .container hr { 
+    display: block; 
+    height: 1px;
+    border: 0; border-top: 1px solid #F8E9A1;
+    margin: 1px; 
+    padding: 0; 
+  }
+  
+  .site-footer .container p {
+    font-size: 14px;
+    text-align: right;
+    color: #F8E9A1;
+    font-weight: 500;
+  }
+  
+  .site-footer .container .logo-img {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+  }
+  
+  .site-footer .grid-container .grid-item .social-buttons {
+    padding-top: 20px;
+  }
+  
+  .site-footer .grid-container .grid-item .social-buttons a {
+    display: inline-flex;
+    text-decoration: none;
+    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    color: #1A1F24;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0 8px;
+  }
+  
+  
+  .site-footer .grid-container .grid-item .social-buttons a i{
+    transition: 0.3s ease-in;
+  }
+  
+  .site-footer .grid-container .grid-item .social-buttons a:hover i {
+    background: linear-gradient(45deg,#F8E9A1,#A2845C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transform: scale(1.5);
+  }
+  
+  .circle-icon {
+      background: #F8E9A1;
+      padding:12px;
+      border-radius: 50%;
+  }
+  
+/*End Footer*/
+
+/*Responiveness*/
+/*// Small devices (landscape phones, 576px and up)*/
+@media (max-width: 576px) 
+{
+    .box 
+    {
+        width: 250px;
+        height: 500px;
+        padding: 20px; 
+        right: 20px;       
+        position: absolute;
+        background: #17252A;
+        text-align: center;
+        transition: 0.25s;
+        margin-right: 50px;
+    }
+
+.box input 
+   {
+        border: 0;
+        background: none;
+        display: block;
+        margin: 20px auto;
+        text-align: center;
+        border: 2px solid #3498db;
+        padding: 10px 10px;
+        width: 150px;
+        outline: none;
+        color: white;
+        border-radius: 24px;
+        transition: 0.25s
+    }
+    .box input:focus 
+    {
+        width: 200px;
+        border-color: #2ecc71
+    }
+
+    .box input[type="submit"] 
+    {
+        border: 0;
+        background: none;
+        /*display: block;*/
+        margin: 20px auto;
+        text-align: center;
+        border: 2px solid #2ecc71;
+        padding: 14px 40px;
+        outline: none;
+        color: white;
+        border-radius: 24px;
+        transition: 0.25s;
+        cursor: pointer
+    }
+
+}
+/*End Responsive*/
