@@ -27,6 +27,9 @@
        <ul class="nav navbar-nav">
         <li style = " color: #fff !important;"><a href = "/" style = " color: #fff !important;">Home</a></li>
         <li style = " color: #fff !important;"><a href = "{{ url_for('.index', _anchor='features') }}" style = " color: #fff !important;">About</a></li>
+        {% if current_user.r_id == 3 %}
+        <li style = " color: #fff !important;"><a href = "/get_card/{{patient_id}}" style = " color: #fff !important;">Get Card</a></li>
+        {% endif %}
         {% if current_user.r_id == 1 %}
         <li style = " color: #fff !important;"><a href = "/doctor/add/{{current_user.id}}/{{patient_id}}" style = " color: #fff !important;">New Appointment</a></li>
         {% endif %}
@@ -68,7 +71,8 @@
                 <td>{{ app.recommended_lab_tests }}</td>
                 {% if current_user.r_id == 1 and app.doc_id == current_user.id %}
                 <td><form method="GET"><button type="submit" formaction="/doctor/update/{{current_user.id}}/{{patient_id}}/{{app.app_id}}" class="btn btn-danger">Update</button></td></form>
-                {% else %}
+                {% elif  current_user.r_id == 1 %}
+                
                 <td></td>
                 {% endif %}
               </tr>

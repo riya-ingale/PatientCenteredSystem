@@ -52,13 +52,24 @@
                     <input type="text" name="mobno" placeholder="Contact Number"> 
                     <input type="email" name="email" placeholder="Email"> 
                     <input type="text" name="city" placeholder="City">
-                    <input type="date" name="dob" placeholder="Date Of Birth">  
-                    <label for="roles">Choose a Role:</label>
-                    <select name="roles" id="roles">
+                    <input type="date" name="dob" placeholder="Date Of Birth"> 
+                    
+                    <!-- <div class="select"> -->
+                      <select name="roles" id="slct" style="width: 250px !important;height:55px; background-color: #17252A;color: #fff; border-color: #2ecc71;">
+                        <option name ="roles" selected disabled>Choose a Role</option>
+                        <option name ="roles" value="Doctor">Doctor</option>
+                        <option name ="roles" value="Lab">Lab</option>
+                        <option name ="roles" value="Patient">Patient</option>
+                      </select>
+                    <!-- </div> -->
+
+                    <!-- <label style="color: #fff;" for="roles">Choose a Role:</label>
+                    <select multiple data-style="bg-white rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100" name="roles" id="roles">
                     <option name ="roles" value="Doctor">Doctor</option>
                     <option name ="roles" value="Patient">Patient</option>
                     <option name ="roles" value="Lab">Lab</option>
-                    </select> 
+                    </select>  -->
+
                     <input type="submit" value="Sign Up" href="/signup">
                 </form>
             </div>
@@ -98,6 +109,11 @@
       </div>
     </footer>
 </body>
+<script>
+  $(function () {
+    $('.selectpicker').selectpicker();
+});
+</script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 </html>

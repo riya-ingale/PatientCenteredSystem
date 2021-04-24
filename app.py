@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file, redirect, url_for, flash
+from flask import Flask, render_template, request, send_file, redirect, url_for, flash, send_from_directory
 from flask import make_response, session, g, send_file
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
@@ -21,6 +21,14 @@ import numpy as np
 # import imghdr
 # from email.message import EmailMessage
 
+import pyqrcode
+import png
+from pyqrcode import QRCode
+from PIL import Image, ImageFont, ImageDraw
+import os
+import cv2
+from io import StringIO
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -37,8 +45,6 @@ class Roles(db.Model):
     __tablename__ = "Roles"
     r_id = db.Column(db.Integer, primary_key=True)
     role_name = db.Column(db.String(20))
-    clearance_level = db.Column(db.Integer, nullable=True)
-    details = db.relationship('Users', backref='Roles')
 
 
 class Users(UserMixin, db.Model):
@@ -52,7 +58,7 @@ class Users(UserMixin, db.Model):
     phone = db.Column(db.String(500))
     email = db.Column(db.String(500))
 
-    r_id = db.Column(db.Integer, db.ForeignKey('Roles.r_id'))
+    r_id = db.Column(db.Integer())
 
 
 class PatientLab(db.Model):
@@ -60,7 +66,7 @@ class PatientLab(db.Model):
     patient_id = db.Column(db.Integer())
     lab_id = db.Column(db.Integer())
 
-    date_collected = db.Column(db.DateTime)
+    date_collected = db.Column(db.Date)
     hemoglobin = db.Column(db.Float(), nullable=True)
     platelets = db.Column(db.Float(), nullable=True)
     rbc_count = db.Column(db.Float(), nullable=True)
@@ -79,12 +85,12 @@ class DoctorAppointment(db.Model):
     appointment_date = db.Column(db.Date)
     symptoms = db.Column(db.String(500))
     medicines = db.Column(db.String(500), nullable=True)
-    next_appointment_date = db.Column(db.DateTime, nullable=True)
+    next_appointment_date = db.Column(db.Date, nullable=True)
     recommended_lab_tests = db.Column(db.String(500), nullable=True)
 
     allergy = db.Column(db.String(500), nullable=True)
     surgery = db.Column(db.String(500), nullable=True)
-    surgery_date = db.Column(db.Date)
+    surgery_date = db.Column(db.Date, nullable=True)
 
 
 login_manager = LoginManager()
@@ -327,13 +333,12 @@ def patient_dash(user_id):
 @app.route('/dashboard/lab/<int:user_id>', methods=['GET', 'POST'])
 def lab_dash(user_id):
     if request.method == 'GET':
-        return 'dashboard asking patient no'
+        return render_template('lab.html', current_user=current_user)
     else:
         patient_no = request.form['patient_no']
         patient_entries = PatientLab.query.filter_by(
             lab_id=user_id, patient_id=patient_no).all()
-        return 'direct to the information of pateints taken by the lab keep the ability to update and add'
-        'Basically show template'
+        return render_template('lab.html', patient_entries=patient_entries, patient_id=patient_no, current_user=current_user)
 
 
 @app.route('/lab/add/<int:user_id>/<int:patient_id>', methods=["GET", "POST"])
@@ -354,9 +359,10 @@ def lab_add(user_id, patient_id):
                                hemoglobin=hemoglobin, platelets=platelets, rbc_count=rbc_count, pcv=pcv, mcv=mcv, mchc=mchc)
         db.session.add(new_entry)
         db.session.commit()
-
         # retrive data from db
-        return 'show template'
+        patient_entries = PatientLab.query.filter_by(
+            lab_id=user_id, patient_id=patient_id).all()
+        return render_template('lab.html', patient_entries=patient_entries, patient_id=patient_id)
 
 
 @app.route('/lab/update/<int:user_id>/<int:patient_id>/<int:report_id>', methods=["GET", "POST"])
@@ -376,8 +382,9 @@ def lab_edit(user_id, patient_id, report_id):
         patient.mchc = request.form.get('mchc')
         db.session.commit()
 
-        # retrive data from db
-        return 'show template'
+        patient_entries = PatientLab.query.filter_by(
+            lab_id=user_id, patient_id=patient_id).all()
+        return render_template('lab.html', patient_entries=patient_entries, patient_id=patient_id)
 
 
 # # DASHBOARD - DOCTOR
@@ -584,6 +591,68 @@ def bokeh():
         css_resources=css_resources,
     )
     return encode_utf8(html)
+
+
+@app.route('/get_card/<int:user_id>', methods=['GET', 'POST'])
+def get_card(user_id):
+    print("Hellooooo")
+    patient = Users.query.filter_by(id=user_id).first()
+    s = "http://127.0.0.1:5000/dashboard/patient/"+str(patient.id)
+
+    url = pyqrcode.create(s)
+
+    url.png('myqr.png', scale=6)
+
+    logo_file = "myqr.png"
+    logoIm = Image.open(logo_file)
+    im = Image.open("2.jpeg")
+    logoIm = logoIm.resize((350, 350))
+    logoWidth, logoHeight = logoIm.size
+    print(logoWidth, logoHeight)
+    im.paste(logoIm, (610, 120))
+    im.save(os.path.join("qr.jpg"))
+    im = Image.open("qr.jpg")
+    draw = ImageDraw.Draw(im)
+
+    extra_bold = ImageFont.truetype('Raleway-ExtraBold.ttf', size=45)
+    black = ImageFont.truetype('Raleway-Black.ttf', size=25)
+    light = ImageFont.truetype('Raleway-Light.ttf', size=20)
+
+    (x, y) = (50, 90)
+    message = patient.name
+    color = 'rgb(58,175,169)'
+    draw.text((x, y), message, fill=color, font=extra_bold)
+
+    (x, y) = (50, 170)
+    name = 'Patient - '+str(patient.id)
+    color = 'rgb(23,37,40)'
+    draw.text((x, y), name, fill=color, font=black)
+
+    (x, y) = (50, 400)
+    name = 'Mobile - '+str(patient.phone)
+    color = 'rgb(23,37,40)'
+    draw.text((x, y), name, fill=color, font=light)
+    (x, y) = (50, 430)
+    name = 'City - '+str(patient.city)
+    color = 'rgb(23,37,40)'
+    draw.text((x, y), name, fill=color, font=light)
+    im.save('greeting_card.png')
+    return send_file('greeting_card.png', as_attachment=True, attachment_filename='greeting_card.png')
+
+    # return redirect('/dashboard/patient/'+str(patient.id))
+
+    # img = cv2.imread(p)
+    # im = Image.fromarray(img)
+    # img2 = StringIO(im)
+    # img2.seek(0)
+    # print(im)
+    # print(img2)
+    # return send_file(img2, mimetype='image/png', attachment_filename=p, as_attachment=True, add_etags=False)
+
+    # result = send_file(p, as_attachment=True,
+    #                    attachment_filename='xyz.png', mimetype='image/png')
+    # print("result-", result)
+    # return result
 
 
 if __name__ == '__main__':
