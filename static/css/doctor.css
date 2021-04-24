@@ -16,8 +16,8 @@ body {
 }
 /* End Card */
 
-/*Table*/
-.table-fixed tbody {
+/* Table*/
+/* .table-fixed tbody {
   height: 300px;
 
   width: 100%;
@@ -26,9 +26,40 @@ table th,
 td {
   border: 1px solid black;
   border-top: 1px solid black !important;
+} */
+
+/*Table end */
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
-/*Table end*/
+.table,
+.jsgrid .jsgrid-table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table thead th,
+.jsgrid .jsgrid-table thead th {
+  border-top: 0;
+  border-bottom-width: 1px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+.table td,
+.jsgrid .jsgrid-table td {
+  font-size: 0.875rem;
+  padding: 0.875rem 0.9375rem;
+}
 
 /* Search Box */
 .search-box {

@@ -25,6 +25,7 @@
                <ul class="navbar-nav mr auto">
                 <li class="nav-item"><a class="nav-link" href="/"><span class="fa fa-home fa-lg"> </span>Home</a></li> 
                   <li class="nav-item"><a class="nav-link" href="{{ url_for('.index', _anchor='features') }}"><i class="fa fa-info-circle"></i> </span>  About</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/logout"><span class="fa fa-sign-out-alt fa-lg"> </span>Logout</a></li> 
                 {% if current_user.r_id == 1 %}
                 <li class="nav-item"><a class="nav-link" href="/doctor/add/{{current_user.id}}/{{patient_id}}"><i class="fa fa-user-md"></i> </span>New Appointment</a></li>
                 {% endif %}
@@ -59,18 +60,20 @@
         </form>
       </div>
 </div>
-{% if patient_entries %}
+{% if post != 'None' %}
 <div class="page-content page-container" id="page-content">
     <div class="padding">
         <div class="row container d-flex justify-content-center">
             <div class="col-lg-8 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Patient Report</h4>
+        
+                        <h4 class="card-title">Patient Report - </h4>
                         <p class="card-description"></p>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
+                                  
                                     <tr>
                                         <th>report_id</th>
                                         <th> patient_id</th>
@@ -86,6 +89,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                  
+                                  {% if patient_entries %}
                                   {% for entry in patient_entries %}
                                     <tr>
                                         <td>{{ entry.report_id }}</td>
@@ -100,7 +105,9 @@
                                         <td>{{ entry.mchc }}</td>
                                         <td><form method="GET"><button type="submit" formaction="/lab/update/{{entry.lab_id}}/{{entry.patient_id}}/{{entry.report_id}}" class="btn btn-info">Edit</button></form></td>
                                     </tr>
+                                    
                                     {% endfor %}
+                                    {% endif %}
                                 </tbody>
                             </table>
                         </div>
@@ -111,13 +118,17 @@
     </div>
 </div>
 {% endif %}
+
+
+
+
     <footer class="site-footer">
       <div class = "container">
   
         <div class="grid-container">
           <div class="grid-item">
             
-            <img src = "..\static\img\stethoscope-icon-2316460_640.png" class = "logo-img" width="80px" height="80px">
+            <img src = "\static\img\stethoscope-icon-2316460_640.png" class = "logo-img" width="80px" height="80px">
   
           </div>
   

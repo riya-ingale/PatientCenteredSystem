@@ -5,7 +5,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import or_
 from werkzeug.security import generate_password_hash, check_password_hash
-# import psycopg2
+import psycopg2
 import os
 from datetime import datetime, timedelta
 from bokeh.embed import components
@@ -17,9 +17,7 @@ from flask import Flask, render_template
 from bokeh.io import curdoc, gridplot
 import pandas as pd
 import numpy as np
-# import smtplib
-# import imghdr
-# from email.message import EmailMessage
+
 
 import pyqrcode
 import png
@@ -110,25 +108,6 @@ def index():
     return render_template('index.html')
 
 
-# EMAIL_ADDRESS = 'mail@gmail.com'
-# EMAIL_PASSWORD = 'mailpassword'
-
-
-# def sendmail(mail_id):
-#     msg = EmailMessage()
-#     msg['Subject'] = 'Sucessfully Registered to Music Fiesta!'
-#     msg['From'] = EMAIL_ADDRESS
-#     msg['To'] = mail_id
-#     msg.set_content('Thank you for Registering to Music Fiesta.')
-
-#     f = open("templates/hello.txt", "r")
-#     msg.add_alternative(f.read(), subtype='html')
-
-#     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-#         smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-#         smtp.send_message(msg)
-
-
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == "POST":
@@ -207,12 +186,14 @@ def logout():
 # # DASHBOARD - PATIENT
 
 @app.route('/dashboard/patient/<int:user_id>', methods=['GET'])
+@login_required
 def patient_dash(user_id):
     user_reports = PatientLab.query.filter_by(patient_id=user_id).all()
     user_apps = DoctorAppointment.query.filter_by(patient_id=user_id).all()
 
     df = pd.DataFrame(columns=['dates', 'hemoglobin',
                                'platelets', 'rbc_count', 'pcv', 'mcv', 'mchc'])
+
     for user in user_reports:
         print(user.hemoglobin)
         df = df.append({'dates': user.date_collected, 'hemoglobin': user.hemoglobin, 'platelets': user.platelets, 'rbc_count': user.rbc_count,
@@ -221,6 +202,7 @@ def patient_dash(user_id):
     fig = figure(title='hemoglobin', plot_width=400,
                  plot_height=300, x_axis_type="datetime", responsive=True)
     df['dates'] = pd.to_datetime(df['dates'])
+    df = df.sort_values(by='dates')
     print(df['hemoglobin'])
     source = ColumnDataSource(df)
     fig.line(
@@ -331,17 +313,19 @@ def patient_dash(user_id):
 
 
 @app.route('/dashboard/lab/<int:user_id>', methods=['GET', 'POST'])
+@login_required
 def lab_dash(user_id):
     if request.method == 'GET':
-        return render_template('lab.html', current_user=current_user)
+        return render_template('lab.html', current_user=current_user, get=1, post='None')
     else:
         patient_no = request.form['patient_no']
         patient_entries = PatientLab.query.filter_by(
             lab_id=user_id, patient_id=patient_no).all()
-        return render_template('lab.html', patient_entries=patient_entries, patient_id=patient_no, current_user=current_user)
+        return render_template('lab.html', patient_entries=patient_entries, patient_id=patient_no, current_user=current_user, post=1, get='None')
 
 
 @app.route('/lab/add/<int:user_id>/<int:patient_id>', methods=["GET", "POST"])
+@login_required
 def lab_add(user_id, patient_id):
     if request.method == "GET":
         return render_template('add_lab_results.html', current_user=current_user, pid=patient_id)
@@ -366,6 +350,7 @@ def lab_add(user_id, patient_id):
 
 
 @app.route('/lab/update/<int:user_id>/<int:patient_id>/<int:report_id>', methods=["GET", "POST"])
+@login_required
 def lab_edit(user_id, patient_id, report_id):
     patient = PatientLab.query.filter_by(report_id=report_id).first()
     if request.method == 'GET':
@@ -391,6 +376,7 @@ def lab_edit(user_id, patient_id, report_id):
 
 
 @app.route('/dashboard/doctor/<int:user_id>', methods=['GET', 'POST'])
+@login_required
 def doctor_dash(user_id):
     if request.method == "GET":
         doc_appointments = DoctorAppointment.query.filter_by(
@@ -409,6 +395,7 @@ def doctor_dash(user_id):
 
 
 @app.route('/doctor/add/<int:user_id>/<int:patient_id>', methods=["GET", "POST"])
+@login_required
 def doctor_add(user_id, patient_id):
     if request.method == "GET":
         return render_template('add_appointment_details.html', pid=patient_id)
@@ -445,6 +432,7 @@ def doctor_add(user_id, patient_id):
 
 
 @app.route('/doctor/update/<int:user_id>/<int:patient_id>/<int:app_id>', methods=["GET", "POST"])
+@login_required
 # user_id==doctor_id
 def doc_edit(user_id, patient_id, app_id):
     patient = DoctorAppointment.query.filter_by(app_id=app_id).first()
@@ -477,18 +465,11 @@ def doc_edit(user_id, patient_id, app_id):
         appointments = DoctorAppointment.query.filter_by(
             doc_id=user_id, patient_id=patient_id).all()
 
-        return 'show template with all appointments'
-
-
-# @app.route('/doctor/update/<int:user_id>/<int:patient_id>/<int:app_id>', methods=["GET", "POST"])
-# def doc_delete(user_id,patient_id,app_id):
-#     patient = DoctorAppointment.query.filter_by(app_id=app_id).first()
-#     db.session.delete(patient)
-#     db.session.commit()
-#     return redirect('pati')
+        return redirect('/dashboard/patient/'+str(patient_id))
 
 
 @app.route('/lab', methods=["GET", "POST"])
+@login_required
 def bokeh():
     fig = figure(title='Hemoglobin', plot_width=400,
                  plot_height=300, x_axis_type="datetime", responsive=True)
@@ -593,7 +574,8 @@ def bokeh():
     return encode_utf8(html)
 
 
-@app.route('/get_card/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/generate/<int:user_id>', methods=['GET', 'POST'])
+@login_required
 def get_card(user_id):
     print("Hellooooo")
     patient = Users.query.filter_by(id=user_id).first()
@@ -638,21 +620,6 @@ def get_card(user_id):
     draw.text((x, y), name, fill=color, font=light)
     im.save('greeting_card.png')
     return send_file('greeting_card.png', as_attachment=True, attachment_filename='greeting_card.png')
-
-    # return redirect('/dashboard/patient/'+str(patient.id))
-
-    # img = cv2.imread(p)
-    # im = Image.fromarray(img)
-    # img2 = StringIO(im)
-    # img2.seek(0)
-    # print(im)
-    # print(img2)
-    # return send_file(img2, mimetype='image/png', attachment_filename=p, as_attachment=True, add_etags=False)
-
-    # result = send_file(p, as_attachment=True,
-    #                    attachment_filename='xyz.png', mimetype='image/png')
-    # print("result-", result)
-    # return result
 
 
 if __name__ == '__main__':
