@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Doctor Form</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="../static/css/doctor_form.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/doctor_form.css') }}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
-   <link rel="icon" type="image/icon" href="..\static\img\stethoscope-icon-2316460_640.png"> 
+   <link rel="icon" type="image/icon" href="\static\img\stethoscope-icon-2316460_640.png"> 
 
 </head>
 <body>
@@ -19,18 +19,16 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                   <span class="navbar-toggler-icon"></span>  
                 </button>
-            <a class="navbar-brand mr-auto" href="#"><img src="..\static\img\stethoscope-icon-2316460_640.png" height="50" width="41"></a>
+            <a class="navbar-brand mr-auto" href="#"><img src="\static\img\stethoscope-icon-2316460_640.png" height="50" width="41"></a>
             <div class="collapse navbar-collapse" id="Navbar">
                <ul class="navbar-nav mr auto">
-                <li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-home fa-lg"> </span>Home</a></li> 
-                  <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-info-circle"></i> </span>  About</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-address-card"></i> </span>  Contact</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/search"><i class="fa fa-user-md"></i> </span>  New Appointment</a></li>
+                <li class="nav-item"><a class="nav-link" href="/"><span class="fa fa-home fa-lg"> </span>Home</a></li> 
+                  <li class="nav-item"><a class="nav-link" href="{{ url_for('.index', _anchor='features') }}"><i class="fa fa-info-circle"></i> </span> About</a></li>
                   <li class="nav-item"><a class="nav-link" href="/logout"><i class="fa fa-sign-out"></i> </span>  Sign Out </a></li>
                 </ul>
             </div>
             <div>
-             <h1 style="color: white;"> Connect</h1>
+             <h1 style="color: white;">Connect</h1>
             </div>
         </div>
     </nav> 
@@ -42,8 +40,8 @@
 <div class="container d-flex justify-content-center" style="margin: 0px;padding: 0px;height: 1000px;">
             <div class="card">
                 <form class="box" method="POST">
-                    <h1>Patient Data</h1>
-                    <p class="text-muted"> Add Patient's Details here!</p> 
+                    <h1>Appointment Details</h1>
+                    <p class="text-muted"> Add Appointment Details here!</p> 
                     <input type="text" name="hospital" placeholder="Hospital Name"> 
                     <input type="date" name="appointment_date" placeholder="Appointment Date">
                     <input type="text" name="symptoms" placeholder="Symptoms"> 
@@ -64,7 +62,7 @@
         <div class="grid-container">
           <div class="grid-item">
             
-            <img src = "..\static\stethoscope-icon-2316460_640.png" class = "logo-img" width="80px" height="80px">
+            <img src ="\static\img\stethoscope-icon-2316460_640.png" class = "logo-img" width="80px" height="80px">
   
           </div>
   

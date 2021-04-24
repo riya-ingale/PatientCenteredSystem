@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Lab</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../static/css/doctor.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/lab.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+  <link rel="icon" type="image/icon" href="static\img\stethoscope-icon-2316460_640.png"> 
+
+</head>
+<body>
+	  <header>
+    <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+        <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                  <span class="navbar-toggler-icon"></span>  
+                </button>
+            <a class="navbar-brand mr-auto" href="#"><img src="..\static\img\stethoscope-icon-2316460_640.png" height="50" width="41"></a>
+            <div class="collapse navbar-collapse" id="Navbar">
+               <ul class="navbar-nav mr auto">
+                <li class="nav-item"><a class="nav-link" href="/"><span class="fa fa-home fa-lg"> </span>Home</a></li> 
+                  <li class="nav-item"><a class="nav-link" href="{{ url_for('.index', _anchor='features') }}"><i class="fa fa-info-circle"></i> </span>  About</a></li>
+                {% if current_user.r_id == 1 %}
+                <li class="nav-item"><a class="nav-link" href="/doctor/add/{{current_user.id}}/{{patient_id}}"><i class="fa fa-user-md"></i> </span>New Appointment</a></li>
+                {% endif %}
+                {% if current_user.r_id == 2 %}
+                <li class="nav-item"><a class="nav-link" href="/lab/add/{{current_user.id}}/{{patient_id}}"><i class="fa fa-user-md"></i> </span>New Lab Result</a></li>
+                {% endif %}
+                </ul>
+            </div>
+            <div>
+             <h1 style="color: white;">Patient Database</h1>
+            </div>
+        </div>
+    </nav> 
+  </header>  
+  <p><br></p>
+  <p><br></p>
+  <p><br></p>
+  <div id=info class=" d-flex justify-content-center" >
+    <div class="p-2 bd-highlight" style="border:2px;border-color:  black;">
+        <h3>Lab Name:Mike Ross</h3>
+        <h3>Lab ID:1</h3>
+        <br>
+    </div>
+  </div>
+
+
+<div class="container d-flex justify-content-center" style="margin: 0px;padding: 0px;height: 100px;">
+    <div class="search-box" style="height: 60px;">
+        <form>
+          <button id="search" type="button" style="border: none;background: none;color: black;">Search</button>
+          <input type="text" placeholder="Enter Patient Number"/><span></span>
+        </form>
+      </div>
+</div>
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-lg-8 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Patient Report</h4>
+                        <p class="card-description"></p>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>report_id</th>
+                                        <th> patient_id</th>
+                                        <th>lab_id</th>
+                                        <th>date_collected</th>
+                                        <th>hemoglobin</th>
+                                        <th>platelets</th>
+                                        <th>rbc_count</th>
+                                        <th>pcv </th>
+                                        <th>mcv</th>
+                                        <th>mchc</th>
+                                        <th>mch </th>
+                                        <th>Edit</th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Samso Park</td>
+                                        <td>34424433</td>
+                                        <td>12 May 2017</td>
+                                        <td>abc</td>
+                                        <td>1234</td>
+                                        <td>abc</td>
+                                        <td>12234</td>
+                                        <td>abc</td>
+                                        <td>1234</td>
+                                        <td>12345</td>
+                                        <td></td>
+                                        <td><button type="button" class="btn btn-info">Edit</button></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Marlo Sanki</td>
+                                        <td>53425532</td>
+                                        <td>15 May 2015</td>
+                                        <td><label class="badge badge-warning">In progress</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>John ryte</td>
+                                        <td>53275533</td>
+                                        <td>14 May 2017</td>
+                                        <td><label class="badge badge-info">Fixed</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Peter mark</td>
+                                        <td>53275534</td>
+                                        <td>16 May 2017</td>
+                                        <td><label class="badge badge-success">Completed</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dave</td>
+                                        <td>53275535</td>
+                                        <td>20 May 2017</td>
+                                        <td><label class="badge badge-warning">In progress</label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <footer class="site-footer">
+      <div class = "container">
+  
+        <div class="grid-container">
+          <div class="grid-item">
+            
+            <img src = "..\static\img\stethoscope-icon-2316460_640.png" class = "logo-img" width="80px" height="80px">
+  
+          </div>
+  
+          <div class="grid-item inner-grid-container">
+            
+            <div class="grid-item"><a href="">About Us</a></div> 
+            <div class="grid-item"><a href="">Privacy Policy</a></div>  
+            <div class="grid-item"><a href="">Contact us</a></div>    
+  
+  
+          </div>
+  
+          <div class="grid-item">
+            <div class = "social-buttons">
+              <a href= ""><i class="fab fa-instagram circle-icon"></i></a>
+              <a href= ""><i class="fab fa-facebook circle-icon"></i></a>
+              <a href= ""><i class="fab fa-linkedin-in circle-icon"></i></a>
+              <a href= ""><i class="fab fa-twitter circle-icon"></i></a>
+            </div>
+          </div>   
+        </div>
+        <br>
+        <hr>
+
+  
+      </div>
+    </footer>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+</html>

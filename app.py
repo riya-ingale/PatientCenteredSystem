@@ -204,6 +204,7 @@ def logout():
 def patient_dash(user_id):
     user_reports = PatientLab.query.filter_by(patient_id=user_id).all()
     user_apps = DoctorAppointment.query.filter_by(patient_id=user_id).all()
+
     df = pd.DataFrame(columns=['dates', 'hemoglobin',
                                'platelets', 'rbc_count', 'pcv', 'mcv', 'mchc'])
     for user in user_reports:
@@ -283,7 +284,7 @@ def patient_dash(user_id):
         line_width=2,
         line_color='#17252A'
     )
-    s5.circle(x='dates', y='mchc', source=source, fill_color="#DEF2F1", size=8)
+    s5.circle(x='dates', y='mcv', source=source, fill_color="#DEF2F1", size=8)
     s5.add_tools(HoverTool(tooltips=[("Y", "@mcv")]))
     s5.border_fill_color = "#DEF2F1"
     s5.min_border_right = 80
@@ -297,7 +298,7 @@ def patient_dash(user_id):
         line_width=2,
         line_color='#17252A'
     )
-    s6.circle(x='dates', y='x', source=source, fill_color="#DEF2F1", size=8)
+    s6.circle(x='dates', y='mchc', source=source, fill_color="#DEF2F1", size=8)
     s6.add_tools(HoverTool(tooltips=[("Y", "@mchc")]))
     s6.border_fill_color = "#DEF2F1"
     s6.min_border_right = 80
@@ -314,7 +315,9 @@ def patient_dash(user_id):
         plot_div=div,
         js_resources=js_resources,
         css_resources=css_resources,
-        user_apps=user_apps
+        user_apps=user_apps,
+        current_user=current_user,
+        patient_id=user_id
     )
     return encode_utf8(html)
 
@@ -376,6 +379,7 @@ def lab_edit(user_id, patient_id, report_id):
         # retrive data from db
         return 'show template'
 
+
 # # DASHBOARD - DOCTOR
 
 
@@ -384,15 +388,17 @@ def doctor_dash(user_id):
     if request.method == "GET":
         doc_appointments = DoctorAppointment.query.filter_by(
             doc_id=user_id).all()
-        'pass every thing to frontend but ask them to only show p_id , next_app , surger_dates , HOspital'
-        return render_template('doctor.html', doc_appointments=doc_appointments, current_user=current_user)
+        doc_info = Users.query.filter_by(id=user_id).first()
+
+        return render_template('doctor.html', doc_appointments=doc_appointments, doc_info=doc_info, current_user=current_user)
     else:
         patient_no = request.form['patient_no']
+        print(patient_no, user_id)
         patient_lab_results = PatientLab.query.filter_by(
             patient_id=patient_no).all()
         patient_prev_appointments = DoctorAppointment.query.filter_by(
             patient_id=patient_no).all()
-        return 'show these information in show template and show edit option to only of his appointment'
+        return redirect('/dashboard/patient/'+str(patient_no))
 
 
 @app.route('/doctor/add/<int:user_id>/<int:patient_id>', methods=["GET", "POST"])
@@ -428,7 +434,7 @@ def doctor_add(user_id, patient_id):
             patient_id=patient_id).all()
         patient_prev_appointments = DoctorAppointment.query.filter_by(
             patient_id=patient_id).all()
-        return 'show these information in show template and show edit option to only of his appointment'
+        return redirect('/dashboard/patient/'+str(patient_id))
 
 
 @app.route('/doctor/update/<int:user_id>/<int:patient_id>/<int:app_id>', methods=["GET", "POST"])
@@ -465,6 +471,14 @@ def doc_edit(user_id, patient_id, app_id):
             doc_id=user_id, patient_id=patient_id).all()
 
         return 'show template with all appointments'
+
+
+# @app.route('/doctor/update/<int:user_id>/<int:patient_id>/<int:app_id>', methods=["GET", "POST"])
+# def doc_delete(user_id,patient_id,app_id):
+#     patient = DoctorAppointment.query.filter_by(app_id=app_id).first()
+#     db.session.delete(patient)
+#     db.session.commit()
+#     return redirect('pati')
 
 
 @app.route('/lab', methods=["GET", "POST"])

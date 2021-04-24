@@ -22,11 +22,12 @@
             <a class="navbar-brand mr-auto" href="#"><img src="..\static\img\stethoscope-icon-2316460_640.png" height="50" width="41"></a>
             <div class="collapse navbar-collapse" id="Navbar">
                <ul class="navbar-nav mr auto">
-                <li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-home fa-lg"> </span>Home</a></li> 
-                  <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-info-circle"></i> </span>  About</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-address-card"></i> </span>  Contact</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/search"><i class="fa fa-user-md"></i> </span>  New Appointment</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/"><span class="fa fa-home fa-lg"> </span>Home</a></li> 
+                  <li class="nav-item"><a class="nav-link" href="{{ url_for('.index', _anchor='features') }}"><i class="fa fa-info-circle"></i> </span>About</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/login"><i class="fa fa-sign-in"></i> Login</a></li>
+                  {% if current_user.get_authenticated %}
                   <li class="nav-item"><a class="nav-link" href="/logout"><i class="fa fa-sign-out"></i> </span>  Sign Out </a></li>
+                  {% endif %}
                 </ul>
             </div>
             <div>

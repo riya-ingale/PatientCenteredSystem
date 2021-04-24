@@ -16,6 +16,20 @@ body {
 }
 /* End Card */
 
+/*Table*/
+.table-fixed tbody {
+  height: 300px;
+
+  width: 100%;
+}
+table th,
+td {
+  border: 1px solid black;
+  border-top: 1px solid black !important;
+}
+
+/*Table end*/
+
 /* Search Box */
 .search-box {
   border: solid 5px black;
