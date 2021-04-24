@@ -68,6 +68,8 @@
                 <td>{{ app.recommended_lab_tests }}</td>
                 {% if current_user.r_id == 1 and app.doc_id == current_user.id %}
                 <td><form method="GET"><button type="submit" formaction="/doctor/update/{{current_user.id}}/{{patient_id}}/{{app.app_id}}" class="btn btn-danger">Update</button></td></form>
+                {% else %}
+                <td></td>
                 {% endif %}
               </tr>
             {% endfor %}
