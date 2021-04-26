@@ -11,8 +11,8 @@ We have created a centralized database connecting patients, doctors and patholog
 
 Video Demonstration - https://youtu.be/l_JbBAcA1xY
 
-Team Byte Panache 
-Rajeev Singh - https://github.com/Rajeev064
-Gaurav Gaonkar - https://github.com/gaga1313
-Samiksha Pansare - https://github.com/Samiksha-Pansare
-Riya Ingale - https://github.com/riya-ingale
+Team Byte Panache <br />
+Rajeev Singh - https://github.com/Rajeev064 <br />
+Gaurav Gaonkar - https://github.com/gaga1313 <br />
+Samiksha Pansare - https://github.com/Samiksha-Pansare <br />
+Riya Ingale - https://github.com/riya-ingale <br />
