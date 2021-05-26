@@ -17,8 +17,6 @@ from flask import Flask, render_template
 from bokeh.io import curdoc, gridplot
 import pandas as pd
 import numpy as np
-
-
 import pyqrcode
 import png
 from pyqrcode import QRCode
@@ -30,8 +28,8 @@ from io import StringIO
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.urandom(24)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mnir@postgresql123@localhost/PatientCenteredDatabase'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///PatientCenteredDatabase.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/DataBaseName'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///PatientCenteredDatabase.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['USE_SESSION_FOR_NEXT'] = True
 
